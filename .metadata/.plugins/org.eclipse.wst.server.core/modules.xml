@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<modules>
+  <module moduleId="org.eclipse.jst.jee.server:Step03" serverId="tomcat8.5 at localhost"/>
+  <module moduleId="org.eclipse.jst.jee.server:Step04" serverId="tomcat8.5 at localhost"/>
+  <module moduleId="org.eclipse.jst.jee.server:Step01" serverId="tomcat8.5 at localhost"/>
+  <module moduleId="org.eclipse.jst.jee.server:Step02" serverId="tomcat8.5 at localhost"/>
+  <module moduleId="org.eclipse.jst.jee.server:BoardProject(0105~)" serverId="tomcat8.5 at localhost"/>
+  <module moduleId="org.eclipse.jst.jee.server:MemberProject" serverId="tomcat8.5 at localhost"/>
+</modules>

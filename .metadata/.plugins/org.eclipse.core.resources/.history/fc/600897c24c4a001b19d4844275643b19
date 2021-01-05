@@ -1,0 +1,33 @@
+<%@page import="service.MemberService"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page errorPage="error.jsp" %>
+<%@ page import="vo.MemberVO" %>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<%
+		request.setCharacterEncoding("utf-8");
+		String id = request.getParameter("id");
+		String name = request.getParameter("name");
+		
+		MemberVO vo = MemberService.getInstance().searchMemberVO(id,name);
+		
+		request.setAttribute("vo", vo);
+	%>
+	<form action="pass_update_action.jsp" method="post">
+		아이디 : <input type="text" name="id" readonly><br>
+		새 암호 : <input type="text" name="pass_update" ><br>
+		<button type="submit">제출</button>
+	</form>
+</body>
+</html>
+
+	
+
+

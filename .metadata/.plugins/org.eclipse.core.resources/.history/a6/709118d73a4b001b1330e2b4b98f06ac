@@ -1,0 +1,38 @@
+<%@ page language="java" contentType="tex
+5
+t/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+
+	$(function () {
+		$("#btn").click(function () {
+			var url = "ServerAjax.jsp";
+			$.ajax({
+				url: url,
+				type:'get',
+				success : function result(data) {
+					alert(data);
+					$("#result").html(data);
+				}
+			});
+		});
+	});
+		
+</script>
+</head>
+<body>
+	<form action="ServerAjax.jsp" method="get">
+		<input type="text" name="name">
+		<button type="button" id="btn">제출</button>
+	</form>
+	
+	<div id="result">
+		
+	</div>
+</body>
+</html>

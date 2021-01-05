@@ -1,0 +1,8 @@
+drop table member cascade constraint;
+
+create table member (
+	id VARCHAR(50 BYTE) ,
+	pass VARCHAR(100 BYTE),
+	name VARCHAR(20 BTRE),
+	age NUMBER
+);

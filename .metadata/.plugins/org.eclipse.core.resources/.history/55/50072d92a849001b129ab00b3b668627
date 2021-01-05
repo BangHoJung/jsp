@@ -1,0 +1,19 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<!-- 아이디, 암호, 이름, 나이 입력받는 회원가입 폼 -->
+	<div id="container">
+		<input type="text" name="id" id="id" placeholder="아이디를 입력하세요">
+		<input type="password" name="pass" id="pass" placeholder="암호를 입력하세요">
+		<input type="password" name="pass2" id="pass2" placeholder="암호를 한번 더 입력하세요">
+		<input type="text" name="name" id="name" placeholder="이름을 입력하세요">
+		<input type="text" name="age" id="age" placeholder="">
+	</div>
+</body>
+</html>

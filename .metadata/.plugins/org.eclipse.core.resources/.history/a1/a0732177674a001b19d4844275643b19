@@ -1,0 +1,22 @@
+<%@page import="service.MemberService"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="vo.MemberVO" %>
+<%@ page import="service.MemberService" %>
+
+    <%
+    	String id=request.getParameter("id");
+    	String pass=request.getParameter("pass");
+    	
+    	MemberVO vo = MemberService.getInstance().checkLoginMember(id,pass);
+    	
+    	if(vo != null) {
+    		session.setMaxInactiveInterval(60*30);
+    		session.setAttribute("login", true);
+    		session.setAttribute("name", "사용자");
+    		session.removeAttribute("msg");
+    	}
+    	else {
+    		
+    	}
+    %>

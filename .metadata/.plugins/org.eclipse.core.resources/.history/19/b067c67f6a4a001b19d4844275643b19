@@ -1,0 +1,17 @@
+<%@page import="service.MemberService"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="vo.MemberVO" %>
+<%@ page errorPage="error.jsp" %>
+
+	<%	
+		request.setCharacterEncoding("utf-8");
+		MemberVO vo = (MemberVO)request.getAttribute("vo");
+		String pass = request.getParameter("pass_update");
+		vo.setPass(pass);
+
+		MemberService.getInstance().updateMemberVO(vo);
+		
+		request.getRequestDispatcher("login.jsp").forward(request, response);
+
+	%>

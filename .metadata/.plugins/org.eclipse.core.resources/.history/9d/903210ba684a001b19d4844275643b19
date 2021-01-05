@@ -1,0 +1,34 @@
+<%@page import="service.MemberService"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page errorPage="error.jsp" %>
+<%@ page import="vo.MemberVO" %>
+
+	<%
+		request.setCharacterEncoding("utf-8"); // post일때 필수로 해야함.
+		String id = request.getParameter("id");
+		String pass = request.getParameter("pass");
+		String name = request.getParameter("name");
+		int age = Integer.parseInt(request.getParameter("age"));
+		
+		MemberVO check = MemberService.getInstance().searchMemberVO(id);
+		
+		MemberVO vo = new MemberVO(id,pass,name,age);
+		
+		try {
+			MemberService.getInstance().insertMemberVO(vo);
+			request.setAttribute("result", "멤버등록 성공");
+			request.setAttribute("to", "login.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("register_result.jsp");
+			dispatcher.forward(request, response);
+			
+		} catch(Exception e) {
+			System.out.print(e.getMessage());
+			request.setAttribute("result", e.getMessage());
+			request.setAttribute("to", "register.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("register_result.jsp");
+			dispatcher.forward(request, response);
+		}
+		
+		
+	%>

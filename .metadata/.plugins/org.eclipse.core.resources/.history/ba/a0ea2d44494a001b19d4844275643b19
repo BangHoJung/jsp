@@ -1,0 +1,20 @@
+<%@page import="service.MemberService"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="vo.MemberVO" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+</body>
+</html>
+
+	<%	
+		MemberVO vo = (MemberVO)request.getAttribute("vo");
+		String pass = request.getParameter("pass_update");
+		MemberService.getInstance().updatePass(id,pass);
+	%>

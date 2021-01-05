@@ -1,0 +1,14 @@
+<%@page import="dao.MemberDAO"%>
+<%@page import="vo.MemberVO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="service.MemberService"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+	<%
+		ArrayList<MemberVO> list =  MemberDAO.getIntance().searchAllMemberVO();
+		String table = "";
+	
+		table += "<table>";
+		table += "<tr><th></tr>";
+	%>
