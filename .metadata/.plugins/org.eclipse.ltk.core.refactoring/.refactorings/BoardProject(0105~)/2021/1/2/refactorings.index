@@ -10,3 +10,15 @@
 1609815291275	Move 'member_manage.jsp' to 'manage'
 1609815295980	Move 3 resources to 'manage'
 1609816423746	Move 3 resources to 'process'
+1609829078210	Rename resource 'index.jsp'
+1609829124868	Rename resource 'board_write.jsp'
+1609829135269	Move 'board_write_view.jsp' to 'board'
+1609831865381	Move 3 resources to 'process'
+1609832003005	Move 'board_write_process.jsp' to 'process'
+1609832308976	Copy compilation unit
+1609896632059	Rename resource 'good.png'
+1609911011149	Move 'logout.jsp' to 'process'
+1609911016660	Rename resource 'logout.jsp'
+1609918584795	Move 'pass_update_process.jsp' to 'process'
+1609919387567	Copy file
+1609919397911	Copy package

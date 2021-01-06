@@ -40,7 +40,7 @@
 				<jsp:include page="/template/header.jsp" flush="false"></jsp:include>
 				
 				<nav>
-					<form action="<%=request.getContextPath() %>/member/member_update_process.jsp" method="post">
+					<form action="<%=request.getContextPath() %>/member/process/member_update_process.jsp" method="post">
 						아이디 : <input type="text" name="id" readonly value=<%=vo.getId() %>> <br>
 						변경할 비밀번호 : <input type="password" name="pass"><br>
 						변경할 이름 : <input type="text" name="name" value=<%=vo.getName() %>><br>

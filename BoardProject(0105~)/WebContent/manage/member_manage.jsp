@@ -205,21 +205,7 @@
 				</ul>
 				<hr>
 				<div id="content_area">
-					<%-- <%
-						//전체 회원 목록
-						ArrayList<MemberVO> list =  MemberService.getInstance().searchAllMemberVO();
 					
-						for(int i=0;i<list.size();i++) {
-						%>
-							<span><%=list.get(i).getId() %></span> 
-							<span><%=list.get(i).getName() %></span> 
-							<span><%=list.get(i).getAge() %></span> 
-							<span><%=list.get(i).getGrade() %></span> 
-							<span><a href="#">수정</a></span> /
-							<span><a href="#">삭제</a></span> <br>
-						<%
-						}
-					%> --%>
 				</div>
 			</div>
 			

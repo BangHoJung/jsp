@@ -1,3 +1,0 @@
-UPDATE MEMBER SET pass='1', name='1', age=1 WHERE id='haha';
-
-ALTER TABLE MEMBER ADD grade NUMBER DEFAULT 1;

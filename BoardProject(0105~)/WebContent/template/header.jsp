@@ -52,7 +52,7 @@
 					String name = (String)session.getAttribute("name");
 					String grade = (String)session.getAttribute("grade");
 					%>
-					<li><a href="<%=request.getContextPath() %>/member/logout.jsp">로그아웃</a></li>
+					<li><a href="<%=request.getContextPath() %>/member/process/logout_process.jsp">로그아웃</a></li>
 					<li><a href="<%=request.getContextPath() %>/member/member_update_view.jsp">회원정보변경</a></li>
 					<%
 					if(grade.equals("master") ) {

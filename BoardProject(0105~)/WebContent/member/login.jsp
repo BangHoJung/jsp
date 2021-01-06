@@ -8,7 +8,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
 	$(function() {
-		$("#id").context().focus();
+		
 	});
 </script>
 
@@ -46,16 +46,16 @@
 				if(flag) { 
 					%>
 					<%=session.getAttribute("name") %> 님이 로그인 하셨습니다.<br>
-					<a href="<%=request.getContextPath() %>/member/logout.jsp">로그아웃</a> | <a href="<%=request.getContextPath() %>/member/member_update_view.jsp">정보수정</a>
+					<a href="<%=request.getContextPath() %>/member/process/logout_process.jsp">로그아웃</a> | <a href="<%=request.getContextPath() %>/member/member_update_view.jsp">정보수정</a>
 					<%
 				}
 				else { %>
-					<form action="<%=request.getContextPath() %>/member/login_process.jsp" method="post">
+					<form action="<%=request.getContextPath() %>/member/process/login_process.jsp" method="post">
 						아이디 : <input type="text" name="id" id="id">  <br>
 						암호 : <input type="password" name="pass"> <br>
 						<button id="login" type="submit">로그인</button>
-						<button id="register" type="button">회원가입</button>
-						<button id="find_pass" type="button" >비밀번호 찾기</button>
+						<a href="register.jsp" type="button">회원가입</a>
+						<a href="find_pass.jsp" type="button" >비밀번호 찾기</a>
 					</form>
 				<% 
 				}

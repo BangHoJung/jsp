@@ -27,7 +27,7 @@
 		<jsp:include page="/template/header.jsp"></jsp:include>
 		<!-- 아이디, 암호, 이름, 나이 입력받는 회원가입 폼 -->
 		<nav>
-			<form action="<%=request.getContextPath() %>/member/register_process.jsp" method="post">
+			<form action="<%=request.getContextPath() %>/member/process/register_process.jsp" method="post">
 				<label>아이디 <input type="text" name="id" placeholder="아이디를 입력하세요"></label> <br>
 				<label>암호 <input type="password" name="pass"  placeholder="암호를 입력하세요"></label><br>
 				<label>이름 <input type="text" name="name"  placeholder="이름을 입력하세요"></label><br>

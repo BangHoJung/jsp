@@ -1,19 +1,11 @@
-INDEX VERSION 1.4+C:\java\jsp\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
-1504366028.index
-357098686.index
-2965989625.index
-3352189039.index
-589907969.index
-666733045.index
-575844052.index
-1187337433.index
-1992621798.index
-575844052.index
-759454777.index
-3490183908.index
-894718941.index
-700463427.index
-4056930983.index
+INDEX VERSION 1.4+C:\java\jsp2\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
 1876566277.index
-136360070.index
-695276473.index
+894718941.index
+3352189039.index
+759454777.index
+783154522.index
+700463427.index
+357098686.index
+3319741957.index
+2965989625.index
+1504366028.index

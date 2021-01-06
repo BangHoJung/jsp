@@ -1,3 +1,5 @@
 SELECT * FROM MEMBER;
+SELECT * FROM BOARD;
+
 
 INSERT INTO MEMBER VALUES('bbbb','bbbb','bbbb',12,'bronze');

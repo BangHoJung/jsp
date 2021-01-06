@@ -16,7 +16,7 @@
 		width:100%;
 	}
 	
-	nav {
+	nav { 
 		height: 600px;
 	}
 	
@@ -29,6 +29,7 @@
 		
 		<nav>
 			메인페이지
+			<a href="<%=request.getContextPath() %>/board/board_write_view.jsp">글쓰기</a>
 		</nav>
 		
 		<jsp:include page="/template/footer.jsp" flush="false"></jsp:include>
