@@ -7,4 +7,5 @@
   <module moduleId="org.eclipse.jst.jee.server:BoardProject(0105~)" serverId="tomcat8.5 at localhost"/>
   <module moduleId="org.eclipse.jst.jee.server:MemberProject" serverId="tomcat8.5 at localhost"/>
   <module moduleId="org.eclipse.jst.jee.server:Step05" serverId="tomcat8.5 at localhost"/>
+  <module moduleId="org.eclipse.jst.jee.server:Step06" serverId="tomcat8.5 at localhost"/>
 </modules>

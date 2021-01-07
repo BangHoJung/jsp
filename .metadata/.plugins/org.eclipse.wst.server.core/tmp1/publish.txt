@@ -1,5 +1,5 @@
 #Tomcat publish data
-#Wed Jan 06 17:46:32 KST 2021
+#Thu Jan 07 17:18:23 KST 2021
 org.eclipse.jst.jee.server\:Step03=C\:\\java\\tomcat8\\webapps\\Step03
 org.eclipse.jst.jee.server\:Step04=C\:\\java\\tomcat8\\webapps\\Step04
 org.eclipse.jst.jee.server\:Step01=C\:\\java\\tomcat8\\webapps\\Step01
@@ -9,3 +9,4 @@ org.eclipse.jst.jee.server\:BoardProject(0105~)=C\:\\java\\tomcat8\\webapps\\Boa
 org.eclipse.jst.jee.server\:MemberProject(teach)=C\:\\java\\tomcat8\\webapps\\MemberProject(teach)
 org.eclipse.jst.jee.server\:Step05=C\:\\java\\tomcat8\\webapps\\Step05
 org.eclipse.jst.j2ee.server\:ojdbc6=C\:\\java\\tomcat8\\webapps\\MemberProject(teach)\\WEB-INF\\lib\\ojdbc6.jar
+org.eclipse.jst.jee.server\:Step06=C\:\\java\\tomcat8\\webapps\\Step06

@@ -1,4 +1,6 @@
 INDEX VERSION 1.131
+C:\java\jsp2\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\4056930983.index
+\BoardProject(0105~)\src
 C:\java\jsp2\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\324991813.index
 \BoardProject(0105~)\src
 C:\java\jsp2\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1992621798.index
@@ -9,10 +11,14 @@ C:\java\jsp2\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2837184028.in
 \BoardProject(0105~)\src
 C:\java\jsp2\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3966845198.index
 \Step05\src
-C:\java\jsp2\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\871328580.index
+C:\java\jsp2\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2204837570.index
 \BoardProject(0105~)\src
+C:\java\jsp2\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2616169470.index
+\Step06\src
 C:\java\jsp2\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3319741957.index
 \Step05\src
+C:\java\jsp2\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\871328580.index
+\BoardProject(0105~)\src
 C:\java\jsp2\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\575844052.index
 \BoardProject(0105~)\src
 C:\java\jsp2\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2262872564.index
