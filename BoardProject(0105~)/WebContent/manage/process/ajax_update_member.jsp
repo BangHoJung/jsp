@@ -8,9 +8,9 @@
 		String id = request.getParameter("id");
 		String name = request.getParameter("name");
 		int age = Integer.parseInt(request.getParameter("age"));
-		String grade = request.getParameter("grade");
+		String grade_name = request.getParameter("grade_name");
 		
-		MemberVO vo = new MemberVO(id,null,name,age,grade);
+		MemberVO vo = new MemberVO(id,null,name,age,grade_name);
 		
 		result = MemberService.getInstance().updateManageMemberVO(vo);
 		

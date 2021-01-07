@@ -16,6 +16,7 @@
 				method : 'get',
 				success : function(data) {
 					var json = JSON.parse(data);
+					console.log(json);
 					var text = "";
 					for(i=0;i<json.result.length;i++) {
 						text += json.result[i].id + " " + json.result[i].name + " " + json.result[i].age + " " + json.result[i].grade_name+"<br>";

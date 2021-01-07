@@ -63,11 +63,27 @@
 		$("#btn_submit").click(function(e) {
 			var data = $("#search").serialize();
 			$.ajax({
-				url: "process/ajax_search_member.jsp",
+				url: "process/ajax_search_member(json).jsp",
 				data : data,
 				method : 'get',
 				success : function result(data) {
-					console.log(data);
+					
+					var json = JSON.parse(data);
+					console.log(json);
+					var result = "<table>";
+					for(i=0;i<json.result.length;i++) {
+						result += "<tr>";
+						result += "<td>"+ json.result[i].id+"<input type='hidden' value = '"+json.result[i].id+"' name='id'></td>";
+						result += "<td><input type='text' value='"+json.result[i].name+"' name='name'></td>";
+						result += "<td><input type='text' value='"+json.result[i].age+"' name='age'></td>";
+						result += "<td><input type='text' value='"+json.result[i].grade_name+"' name='grade_name'></td>";
+						result += "<td><a href='#' class='update' >수정</a> / <a href='#' class='delete' >삭제</a></td> </tr>";
+					}
+					result += "</table>";
+					$("#content_area").html(result);
+					
+					// ajax_search_member.jsp 결과 처리
+					/* console.log(data);
 					var result = "<table>";
 					var arr = data.split(",");
 					for(i=0;i<arr.length-1;i++) {
@@ -80,14 +96,19 @@
 						result += "<td><a href='#' class='update' >수정</a> / <a href='#' class='delete' >삭제</a></td> </tr>";
 					}
 					result += "</table>";
-					$("#content_area").html(result);
+					$("#content_area").html(result); */
 				}
 				
 			});
 		});
 		
+		$("input[name=search]").keyup(function() {
+			$("#btn_submit").click();
+		});
+		
 		$("select").change(function () {
 			$("input[name=search]").val("");
+			$("#btn_submit").click();
 		});
 		
 		$("#btn_submit").click();
@@ -172,7 +193,7 @@
 			%>
 			<script type="text/javascript">
 				alert("관리자 계정이 아닙니다.");
-				location.href="main.jsp";
+				location.href="<%=request.getContextPath()%>/index.jsp";
 			</script>
 			<%
 		}
@@ -188,7 +209,7 @@
 					<select name="kind">
 						<option value="id" selected>아이디</option>
 						<option value="name">이름</option>
-						<option value="grade">등급</option>
+						<option value="grade_name">등급</option>
 					</select>
 					<input type="text" name="search">
 					<button id="btn_submit" type="button">검색</button>

@@ -14,7 +14,6 @@
 		BoardDTO board = new BoardDTO(title,writer,content);
 		int bno = BoardService.getInstance().insertBoardDTO(board);
 		
-		//request.setAttribute("bno", bno);
 		System.out.print(bno+"\n");
 		
 		//게시글 조회 페이지 board_view.jsp 게시글 번호

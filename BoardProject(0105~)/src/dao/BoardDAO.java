@@ -31,7 +31,7 @@ public class BoardDAO {
 		String sql = "SELECT SEQ_BNO.NEXTVAL FROM DUAL";
 		
 		try {
-			pstmt = manager.getConnection().prepareStatement(sql);
+			pstmt = manager.getSource().getConnection().prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
@@ -49,7 +49,7 @@ public class BoardDAO {
 		String sql2 = "INSERT INTO BOARD(bno,title,writer,content) VALUES(?,?,?,?)";
 		
 		try {
-			pstmt2 = manager.getConnection().prepareStatement(sql2);
+			pstmt2 = manager.getSource().getConnection().prepareStatement(sql2);
 			pstmt2.setInt(1, bno);
 			pstmt2.setString(2, board.getTitle());
 			pstmt2.setString(3, board.getWriter());
@@ -78,7 +78,7 @@ public class BoardDAO {
 		String sql = "SELECT * FROM BOARD WHERE bno = ?";
 		
 		try {
-			pstmt = manager.getConnection().prepareStatement(sql);
+			pstmt = manager.getSource().getConnection().prepareStatement(sql);
 			pstmt.setInt(1, bno);
 			rs = pstmt.executeQuery();
 			
@@ -100,7 +100,7 @@ public class BoardDAO {
 		String sql = "UPDATE BOARD SET bcount = bcount + 1 WHERE bno=?";
 		
 		try {
-			pstmt = manager.getConnection().prepareStatement(sql);
+			pstmt = manager.getSource().getConnection().prepareStatement(sql);
 			pstmt.setInt(1, bno);
 			
 			int count = pstmt.executeUpdate();
@@ -127,7 +127,7 @@ public class BoardDAO {
 		String sql2 = "SELECT "+lh+" FROM BOARD WHERE bno = ?";
 		
 		try {
-			pstmt2 = manager.getConnection().prepareStatement(sql2);
+			pstmt2 = manager.getSource().getConnection().prepareStatement(sql2);
 			//pstmt2.setString(1, lh);
 			pstmt2.setInt(1, bno);
 			
@@ -149,7 +149,7 @@ public class BoardDAO {
 		String sql = "UPDATE BOARD SET "+ lh +" = ? WHERE bno = ?";
 		
 		try {
-			pstmt = manager.getConnection().prepareStatement(sql);
+			pstmt = manager.getSource().getConnection().prepareStatement(sql);
 			//pstmt.setString(1, lh);
 			pstmt.setInt(1, result);
 			pstmt.setInt(2, bno);
@@ -159,7 +159,6 @@ public class BoardDAO {
 				System.out.println("업데이트 실패");
 			}
 			System.out.println("업데이트 성공");
-			manager.getConnection().commit();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -178,7 +177,7 @@ public class BoardDAO {
 		String sql = "SELECT * FROM BOARD";
 		
 		try {
-			pstmt = manager.getConnection().prepareStatement(sql);
+			pstmt = manager.getSource().getConnection().prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
