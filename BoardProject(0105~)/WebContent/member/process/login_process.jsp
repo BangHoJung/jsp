@@ -17,7 +17,8 @@
     		session.setAttribute("name", vo.getName());
     		System.out.print(vo.getGrade());
     		session.setAttribute("grade", vo.getGrade());
-    		response.sendRedirect(request.getContextPath() + "/member/login.jsp");
+    		//response.sendRedirect(request.getContextPath() + "/index.jsp");
+    		response.sendRedirect(session.getAttribute("last").toString());
     	}
     	else {
     		session.setAttribute("login", false);
@@ -28,5 +29,4 @@
     		</script>
     		<%
     	}
-    	
     %>

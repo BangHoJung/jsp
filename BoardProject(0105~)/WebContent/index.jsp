@@ -1,3 +1,9 @@
+<%@page import="dao.BoardDAO"%>
+<%@page import="vo.PagingVO"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="service.BoardService"%>
+<%@page import="dto.BoardDTO"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -5,7 +11,18 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$("tbody tr").click(function() {
+			var bno = $(this).children().eq(0).html();
+			console.log(bno+"\n<%=request.getContextPath()%>");
+			
+			location.href = "<%=request.getContextPath()%>/board/board_view.jsp?bno="+bno+"";
+			
+		});
+	});
+</script>
 <style type="text/css">
 	* {
 		margin:0;
@@ -16,22 +33,197 @@
 		width:100%;
 	}
 	
-	nav { 
-		height: 600px;
+	#search {
+		text-align: center;
+		font-size:18px;
+		height: 30px;
+		margin:20px 0px;
+	}
+	
+	#search > input{
+		width:300px;
+		margin: 0px 20px;
+		height: 100%;
+	}
+	
+	#select {
+		display: inline-block;
+		width:100px;
+		height: 100%;
+	}
+	
+	nav table {
+		margin:0 auto;
+		margin-top:20px;
+		margin-bottom:20px;
+		text-align: center;
+		font-size:0px;
+		border-collapse: collapse;
+	}
+	nav th, nav td {
+		padding:5px;
+		font-size:16px;
+	}
+	
+	nav th {
+		border-top:2px solid black;
+		border-bottom:2px solid black;
+	}
+	
+	nav tbody tr:hover {
+		border:1px solid black;
+		background: silver;
+		box-sizing: border;
+	}
+	
+	nav td:nth-of-type(2) {
+		width:300px;
+	}
+	
+	nav td:nth-of-type(3) {
+		width:150px;
+	}
+	
+	nav td:nth-of-type(4) {
+		width:200px;
+	}
+	
+	nav tr:last-child {
+		border-bottom:2px solid black;
+	}
+	
+	.btn{
+		text-decoration: none;
+		background-color: #e8e8e8;
+		width: 80px;
+		display: inline-block;
+		padding:5px 0px;
+		font-weight:normal;
+		border : 1px solid #585858;
+		text-align:center;
+		color : black;
+		font-size:14px;
+		box-sizing: border-box;
+	}
+	.btn:hover{
+		background-color: #282828;
+		color:#FFFFFF
+	}
+	
+	tfoot td > a:link,tfoot td > a:visited {
+		color : black;
+		text-decoration: none;
+		font-size:18px;
+		margin:0px 10px;
+	}
+	
+	tfoot td > a:hover {
+		font-weight: bold;
+		color:red;
+	}
+	
+	tfoot td > span {
+		float:right;
 	}
 	
 </style>
 </head>
 <body>
-	<!-- header.jsp를 현재 문서에 포함 -->
+	<%
+		String param = "";
+		if(request.getQueryString()!=null) {
+			param += "?"+request.getQueryString();
+		}
+		session.setAttribute("last", request.getRequestURI()+param);
+		System.out.println(session.getAttribute("last"));
+		
+		System.out.println("param : "+param);
+		int currPage = 1;
+		if(param.length()>1) {
+			currPage = Integer.parseInt(param.split("=")[1]);
+			System.out.println("currPage : " + currPage);
+		}
+		int count = BoardDAO.getInstance().countAllBoard();
+		PagingVO pageVO = new PagingVO(count,currPage);
+		ArrayList<BoardDTO> board_list = BoardService.getInstance().searchAllBoardDTO(currPage);
+		HashMap<Integer, Integer> map = BoardService.getInstance().countAllComment(); 
+		
+	%>
+	
 	<div id="container">
 		<jsp:include page="/template/header.jsp" flush="false"></jsp:include>
-		
+		<div id="search">
+			<div id="select">
+				제목
+			</div>
+			<input type="text">
+			<a href="#" class="btn">검색</a>
+		</div>
 		<nav>
-			메인페이지
-			<a href="<%=request.getContextPath() %>/board/board_write_view.jsp">글쓰기</a>
+			<table>
+				<thead>
+					<tr>
+						<th>글번호</th>
+						<th>제목</th>
+						<th>작성자</th>
+						<th>작성일</th>
+						<th>조회수</th>
+						<th>좋아요</th>
+						<th>싫어요</th>
+					</tr>
+				</thead>
+				<tbody>
+				<%
+					for(int i=0;i<board_list.size();i++) {
+						%>
+							<tr>
+								<td><%=board_list.get(i).getBno() %></td>
+								<td><%=board_list.get(i).getTitle()%> 
+								<%
+								if(map.containsKey(board_list.get(i).getBno())) {
+									%>
+									[<%=map.get(board_list.get(i).getBno())%>]
+									<%
+								}
+								%>
+								</td>
+								<td><%=board_list.get(i).getWriter()%></td>
+								<td><%=board_list.get(i).getDate() %></td>
+								<td><%=board_list.get(i).getCount() %></td>
+								<td><%=board_list.get(i).getLike() %></td>
+								<td><%=board_list.get(i).getHate() %></td>
+							</tr>
+						<%
+					}
+				%>
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="7">
+							<%
+							if(pageVO.isPrevPageGroup()) { 
+							%>	
+								<a href="index.jsp?currPage=<%=pageVO.getStartPageOfPageGroup()-1%>">◀</a>
+							<%}
+							for(int i=pageVO.getStartPageOfPageGroup();i<=pageVO.getEndPageOfPageGroup();i++) {%>
+								<a href="index.jsp?currPage=<%=i%>"><%=i%></a>
+							<%}
+							if(pageVO.isNextPageGroup()) {%>
+								<a href="index.jsp?currPage=<%=pageVO.getEndPageOfPageGroup()+1%>">▶</a>
+							<%}%>
+							<span><a href="<%=request.getContextPath() %>/board/board_write_view.jsp" class="btn">글쓰기</a></span>
+						</td>
+					</tr>
+				</tfoot>
+			</table>
 		</nav>
-		
+		<div id="">
+			<span>
+				
+			</span>
+			
+		</div>
+	
 		<jsp:include page="/template/footer.jsp" flush="false"></jsp:include>
 		
 	</div>

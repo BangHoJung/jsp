@@ -28,7 +28,7 @@ public class MemberDAO {
 		String sql = "INSERT INTO MEMBER VALUES(?,?,?,?,1)";
 		
 		try {
-			pstmt = manager.getSource().getConnection().prepareStatement(sql);
+			pstmt = manager.getConn().prepareStatement(sql);
 			pstmt.setString(1, vo.getId());
 			pstmt.setString(2, vo.getPass());
 			pstmt.setString(3, vo.getName());
@@ -56,7 +56,7 @@ public class MemberDAO {
 		String sql = "SELECT id,pass,name,age,grade_name FROM member,grade_list WHERE id =? AND member.grade=grade_list.grade ";
 		
 		try {
-			pstmt = manager.getSource().getConnection().prepareStatement(sql);
+			pstmt = manager.getConn().prepareStatement(sql);
 			pstmt.setString(1, id);
 			
 			rs = pstmt.executeQuery();
@@ -78,7 +78,7 @@ public class MemberDAO {
 		PreparedStatement pstmt = null;
 		String sql = "update  member set pass = ? where id = ?";
 		try {
-			pstmt = manager.getSource().getConnection().prepareStatement(sql);
+			pstmt = manager.getConn().prepareStatement(sql);
 			pstmt.setString(1, pass);
 			pstmt.setString(2,id);
 			int count = pstmt.executeUpdate();
@@ -99,7 +99,7 @@ public class MemberDAO {
 		String sql = "SELECT id,pass,name,age,grade_name FROM member,grade_list WHERE id=? AND pass=? AND member.grade = grade_list.grade";
 		
 		try {
-			pstmt = manager.getSource().getConnection().prepareStatement(sql);
+			pstmt = manager.getConn().prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.setString(2, pass);
 			rs = pstmt.executeQuery();
@@ -124,7 +124,7 @@ public class MemberDAO {
 			String sql = "UPDATE MEMBER SET pass = ?, name = ?, age = ? WHERE id = ?";
 			
 			try {
-				pstmt = manager.getSource().getConnection().prepareStatement(sql);
+				pstmt = manager.getConn().prepareStatement(sql);
 				pstmt.setString(1, vo.getPass());
 				pstmt.setString(2, vo.getName());
 				pstmt.setInt(3, vo.getAge());
@@ -148,7 +148,7 @@ public class MemberDAO {
 			String sql = "UPDATE MEMBER SET name = ?, age = ?, grade = (SELECT grade FROM grade_list WHERE grade_name = ?) WHERE id = ?";
 			
 			try {
-				pstmt = manager.getSource().getConnection().prepareStatement(sql);
+				pstmt = manager.getConn().prepareStatement(sql);
 				pstmt.setString(1, vo.getName());
 				pstmt.setInt(2, vo.getAge());
 				pstmt.setString(3, vo.getGrade());
@@ -176,7 +176,7 @@ public class MemberDAO {
 		String grade_name = "";
 		
 		try {
-			pstmt = manager.getSource().getConnection().prepareStatement(sql);
+			pstmt = manager.getConn().prepareStatement(sql);
 			pstmt.setInt(1, grade);
 			
 			rs = pstmt.executeQuery();
@@ -201,7 +201,7 @@ public class MemberDAO {
 		String sql = "SELECT id,pass,name,age,grade_name FROM MEMBER,GRADE_LIST WHERE member.grade = grade_list.grade AND name Like ?";
 		
 		try {
-			pstmt = manager.getSource().getConnection().prepareStatement(sql);
+			pstmt = manager.getConn().prepareStatement(sql);
 			pstmt.setString(1, name);
 			rs = pstmt.executeQuery();
 			
@@ -224,7 +224,7 @@ public class MemberDAO {
 		String sql = "DELETE FROM MEMBER WHERE id=?";
 		
 		try {
-			pstmt = manager.getSource().getConnection().prepareStatement(sql);
+			pstmt = manager.getConn().prepareStatement(sql);
 			pstmt.setString(1, id);
 			
 			int count = pstmt.executeUpdate();

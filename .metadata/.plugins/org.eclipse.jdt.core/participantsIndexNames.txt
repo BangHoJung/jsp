@@ -9,8 +9,6 @@ C:\java\jsp2\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\4191431485.in
 \BoardProject(0105~)\src
 C:\java\jsp2\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2837184028.index
 \BoardProject(0105~)\src
-C:\java\jsp2\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3966845198.index
-\Step05\src
 C:\java\jsp2\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2204837570.index
 \BoardProject(0105~)\src
 C:\java\jsp2\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2616169470.index
@@ -23,5 +21,3 @@ C:\java\jsp2\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\575844052.ind
 \BoardProject(0105~)\src
 C:\java\jsp2\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2262872564.index
 \BoardProject(0105~)\src
-C:\java\jsp2\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\136360070.index
-\MemberProject(1229~0105)\src

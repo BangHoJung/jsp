@@ -11,6 +11,6 @@
 
 		MemberService.getInstance().updatePass(id, pass);
 		
-		request.getRequestDispatcher(request.getContextPath() + "/member/login.jsp").forward(request, response);
+		response.sendRedirect(session.getAttribute("last").toString());
 
 	%>

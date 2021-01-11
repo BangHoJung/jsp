@@ -77,9 +77,17 @@
 		if(session.getAttribute("login") == null || (boolean) session.getAttribute("login")==false){
 			%>
 				<script>
+					alert("로그인을 해주세요");
 					location.href="<%=request.getContextPath()%>/index.jsp";
 				</script>
 			<%
+		}
+		else {
+			String param = "";
+			if(request.getQueryString()!=null) {
+				param += "?"+request.getQueryString();
+			}
+			session.setAttribute("last", request.getRequestURI()+param);
 		}
 	%>
 	<div id="container">
@@ -104,7 +112,7 @@
 					<th style="vertical-align: top;">내용</th><td><textarea name="content"></textarea></td>
 				</tr>
 				<tr>
-					<th><a href="board_list.jsp" class="btn">목록보기</a></th>
+					<th><a href="<%=request.getContextPath() %>/index.jsp" class="btn">목록보기</a></th>
 					<td style="text-align: right;">
 						<a href="javascript:history.back();" class="btn">뒤로가기</a>
 						<button class="btn" type="submit">글쓰기</button>

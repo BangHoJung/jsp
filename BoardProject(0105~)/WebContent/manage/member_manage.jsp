@@ -198,6 +198,12 @@
 			<%
 		}
 	
+		String param = "";
+		if(!request.getQueryString().equals(null)) {
+			param += "?"+request.getQueryString();
+		}
+		session.setAttribute("last", request.getRequestURI()+param);
+	
 	%>
 	
 	<div id="container">

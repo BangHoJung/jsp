@@ -1,3 +1,6 @@
+<%@page import="dto.CommentDTO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.Enumeration"%>
 <%@page import="dto.BoardDTO"%>
 <%@page import="service.BoardService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -12,18 +15,55 @@
 	$(function() {
 		
 		$(".btn_like_hate").click(function() {
-			var data = "bno=<%=request.getParameter("bno")%>&id=" + $(this).attr("id");
-			var obj = $(this);
+			<%
+			if(session.getAttribute("login") == null || (boolean) session.getAttribute("login")==false){
+				%>
+				alert("로그인이 필요합니다.");
+				<%
+			}
+			else {
+			%>
+				var data = "bno=<%=request.getParameter("bno")%>&id=" + $(this).attr("id");
+				var obj = $(this);
+				$.ajax({
+					url : "process/board_like_hate_process.jsp",
+					data : data,
+					method : 'get',
+					success : function(d) {
+						d = d.trim();
+						console.log(d);
+						$(obj).children("span").html(d);
+					},
+					error:function(request, status, error) {
+						console.log("error_code ="+request.status);
+						console.log("message ="+request.responseText);
+						console.log("error ="+error);
+						console.log("status="+status);
+						<%-- location.href = "<%=session.getAttribute("last")%>"; --%>
+					}
+				});
+			<%
+			}
+			%>
+		});
+		
+		$("textarea").keyup(function() {
+			$(".length").html( $(this).val().length+"/500");
+		});
+		
+		
+		$("#comment_write a").click(function() {
+			var data = $("#comment").serialize();
+			console.log(data);
 			$.ajax({
-				url : "process/board_like_hate_process.jsp",
-				data : data,
-				method : 'get',
-				success : function(d) {
-					d = d.trim();
-					console.log(d);
-					$(obj).children("span").html(d);
+				url:'process/comment_insert_process.jsp',
+				data:data,
+				method:'get',
+				success: function(d) {
+					alert("댓글 등록 성공 : " + d);
+					location.reload();
 				}
-			})
+			});
 		});
 	});
 </script>
@@ -41,6 +81,7 @@
 		margin:0 auto;
 		margin-top:20px;
 		margin-bottom:20px;
+		width:800px;
 	}
 	
 	nav table{
@@ -153,22 +194,130 @@
 		margin-left:30%;
 	}
 	
+	#comment_write {
+		border:1px solid gray;
+		margin:0 auto;
+		width:800px;
+		padding:20px;
+		padding-bottom:0px;
+		box-sizing: border-box;
+	}
+	
+	#comment_write textarea {
+		width:100%;
+		height: 80px;
+		border:none;
+		outline:none;
+		resize: none;
+		box-sizing: border-box;
+		font-size:14px;
+		
+		
+	}
+	
+	#comment_write a {
+		border:1px solid #2CDC00;
+		box-sizing: border;
+		width: 80px;
+		height: 40px;
+		font-weight: bold;
+		padding-top:10px;
+		display:inline-block;
+	}
+	
+	#comment_write a:link,#comment_write a:visited{
+		text-decoration: none;
+		background-color: #2CDC00;
+		color:white;
+		font-size:20px;
+		text-align: center;
+	}
+	
+	#comment_write a:hover {
+		border:1px solid green;
+	}
+	
+	.length {
+		text-align: right;
+		padding-right:20px;
+	}
+	
+	#comment_view {
+		width:800px;
+		margin:0 auto;
+		margin-top:20px;
+		margin-bottom:20px;
+	}
+	
+	#comment_view > div {
+		margin: 10px 0px;
+		padding:20px;
+	}
+	
+	#comment_view p:first-of-type {
+		margin:0;
+		padding:0;
+		font-size:12px;
+		color:silver;
+		font-style: italic;
+	}
+	
+	#comment_view h3{
+		text-align: left;
+		
+	}
+	
+	#comment_view p {
+		font-size:14px;
+		color:black;
+		margin:10px 0px;
+	}
+	
+	#comment_view a {
+		font-size:12px;
+		text-decoration: none;
+	}
+	
+	#comment_view .like_hate {
+		float:right;
+		margin:0px 20px;
+		font-size:14px;
+		text-decoration: none;
+		text-align: center;
+		display: inline-block;
+		
+	}
+	
+	
+	#comment_view img {
+		width:13px;
+		height: 13px;
+		margin-right:10px;
+		margin-top:5px;
+	}
+	
+	
 </style>
 </head>
 <body>
 	<%
+		
 		BoardDTO dto = null;
 		int bno = 0;
-		if(session.getAttribute("login") == null || (boolean) session.getAttribute("login")==false){
-			%>
-				<script>
-					location.href="<%=request.getContextPath()%>/index.jsp";
-				</script>
-			<%
-		}
 		
 		bno = Integer.parseInt(request.getParameter("bno"));
 		dto =  BoardService.getInstance().searchBoardDTO(bno);
+		ArrayList<CommentDTO> comment_list = BoardService.getInstance().searchAllCommentDTO(bno);
+		for(int i=0;i<comment_list.size();i++) {
+			System.out.println(comment_list.get(i));
+		}
+
+		//application.setAttribute("last", request.getRequestURI()+"?bno="+request.getParameter("bno"));
+		String param = "";
+		if(request.getQueryString()!=null) {
+			param += "?"+request.getQueryString();
+		}
+		session.setAttribute("last", request.getRequestURI()+param);
 		
 	%>
 	<div id="container">
@@ -179,7 +328,8 @@
 			<form action="/process/board_wirte_process" method="post">
 				<table>
 					<%
-						if(dto.getWriter().equals(session.getAttribute("id"))) {
+						if(session.getAttribute("login")!=null && (boolean)session.getAttribute("login")) {
+							if(dto.getWriter().equals(session.getAttribute("id"))) {
 					%>
 					<tr>
 						<th></th>
@@ -190,6 +340,7 @@
 						
 					</tr>
 					<%
+							}
 						}
 					%>
 					<tr>
@@ -234,20 +385,57 @@
 						</td>
 					</tr>
 					<tr>
-						<th><hr></th>
-						<td><hr></td>
+						<td colspan="2"><hr></td>
 					</tr>
 					<tr>
 						<th>
 							<a href="#" class="btn" id="prev">이전글</a>
 						</th>
 						<td>
-							<a href="board_list.jsp" class="btn" id="list">목록으로</a>
+							<a href="<%=request.getContextPath() %>/index.jsp" class="btn" id="list">목록으로</a>
 							<a href="#" class="btn" id="next">다음글</a>
 						</td>
 					</tr>
 				</table>
 			</form>
+			<%
+				if(session.getAttribute("login")!=null && (boolean)session.getAttribute("login")) {
+			%>
+			<div id="comment_write">
+				<form id="comment">
+					<input type="hidden" name="bno" value="<%=dto.getBno()%>">
+					<input type="hidden" name="writer" value="<%=session.getAttribute("id")%>">
+					<span><%=session.getAttribute("id") %></span><br><hr>
+					<textarea placeholder="댓글을 입력하세요" maxlength="500" name="content"></textarea>
+					<p class="length">0/500</p><hr>
+					<p style="text-align: right"><a href="#">등 록</a></p>
+				</form>
+			</div>
+			<%} %>
+			<div id="comment_view">
+				<%
+				for(int i=0;i<comment_list.size();i++) {
+				%>
+				<div>
+					<h3><%=comment_list.get(i).getWriter() %></h3>
+					<p><%=comment_list.get(i).getDate() %></p>
+					<p><%=comment_list.get(i).getContent() %></p>
+					<%
+					if(session.getAttribute("login")!=null && (boolean)session.getAttribute("login")) {
+						if(comment_list.get(i).getWriter().equals(session.getAttribute("id"))) {
+							%>
+							<a href="#">수정</a> / <a href="#">삭제</a>
+							<%
+						}
+					}
+					%>
+					<a href="#" class="like_hate"><img src="../img/hate.png"><span><%=comment_list.get(i).getHate() %></span></a>
+					<a href="#" class="like_hate"><img src="../img/like.png"><span><%=comment_list.get(i).getLike() %></span></a>
+				</div>
+				
+				
+				<% } %>
+			</div>
 		</nav>
 		
 		<jsp:include page="/template/footer.jsp" flush="false"></jsp:include>

@@ -14,7 +14,7 @@
 		search = "%"+search+"%";
 		
 		String sql = "SELECT id,name,age,grade_name FROM MEMBER m , grade_list g WHERE m.grade=g.grade AND "+kind+" LIKE ? ORDER BY "+kind+" ASC";
-		PreparedStatement pstmt = DBManager.getInstance().getSource().getConnection().prepareStatement(sql);
+		PreparedStatement pstmt = DBManager.getInstance().getConn().prepareStatement(sql);
 		pstmt.setString(1, search);
 		ResultSet rs = pstmt.executeQuery();
 		

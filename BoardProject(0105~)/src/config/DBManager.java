@@ -1,5 +1,6 @@
 package config;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,14 +12,18 @@ import javax.sql.DataSource;
 
 public class DBManager {
 	private static DBManager instance = new DBManager();
-	private DataSource source;
+	private Connection conn;
       
 	private DBManager() {
 		Context context;
 		try {
 			context = new InitialContext();
-			source = (DataSource)context.lookup("java:/comp/env/jdbc/myoracle");
+			DataSource source = (DataSource)context.lookup("java:/comp/env/jdbc/myoracle");
+			conn = source.getConnection();
 		} catch (NamingException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -29,8 +34,8 @@ public class DBManager {
 		return instance;
 	}
 	
-	public DataSource getSource() {
-		return source;
+	public Connection getConn() {
+		return conn;
 	}
 	
 	public void close(PreparedStatement pstmt, ResultSet rs) {

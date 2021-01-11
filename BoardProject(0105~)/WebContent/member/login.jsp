@@ -45,8 +45,8 @@
 					flag = (boolean)session.getAttribute("login");
 				if(flag) { 
 					%>
-					<%=session.getAttribute("name") %> 님이 로그인 하셨습니다.<br>
-					<a href="<%=request.getContextPath() %>/member/process/logout_process.jsp">로그아웃</a> | <a href="<%=request.getContextPath() %>/member/member_update_view.jsp">정보수정</a>
+					<%-- <%=session.getAttribute("name") %> 님이 로그인 하셨습니다.<br>
+					<a href="<%=request.getContextPath() %>/member/process/logout_process.jsp">로그아웃</a> | <a href="<%=request.getContextPath() %>/member/member_update_view.jsp">정보수정</a> --%>
 					<%
 				}
 				else { %>

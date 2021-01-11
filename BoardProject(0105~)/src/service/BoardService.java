@@ -1,9 +1,11 @@
 package service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import dao.BoardDAO;
 import dto.BoardDTO;
+import dto.CommentDTO;
 import exception.BoardException;
 
 public class BoardService {
@@ -48,8 +50,20 @@ public class BoardService {
 		return dao.addLikeHateBoardDTO(bno,lh);
 	}
 	
-	public ArrayList<BoardDTO> searchAllBoardDTO() {
-		return dao.searchAllBoardDTO();
+	public ArrayList<BoardDTO> searchAllBoardDTO(int currPage) {
+		return dao.searchAllBoardDTO(currPage);
+	}
+	
+	public int insertBoardComment(CommentDTO dto) {
+		return dao.insertBoardComment(dto);
+	}
+	
+	public ArrayList<CommentDTO> searchAllCommentDTO(int bno) {
+		return dao.searchAllCommentDTO(bno);
+	}
+	
+	public HashMap<Integer, Integer> countAllComment() {
+		return dao.countAllComment();
 	}
 
 }

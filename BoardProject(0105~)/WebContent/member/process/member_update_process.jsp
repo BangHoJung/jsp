@@ -20,11 +20,9 @@
     	%>
     	
     	<script>
-    		
-    			alert("정보 수정 성공");
-    			location.href = "<%=request.getContextPath()%>/index.jsp";
+   			alert("정보 수정 성공");
    		</script>
    		
    		<%
-   		System.out.print("정보 변경 성공");
+   		response.sendRedirect(session.getAttribute("last").toString());
     %>

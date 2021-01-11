@@ -79,14 +79,6 @@
 </head>
 <body>
 	<%
-		if(session.getAttribute("login") == null || (boolean) session.getAttribute("login")==false){
-			%>
-				<script>
-					location.href="<%=request.getContextPath()%>/index.jsp";
-				</script>
-			<%
-		}
-	
 		ArrayList<BoardDTO> list = BoardService.getInstance().searchAllBoardDTO();
 	%>
 	

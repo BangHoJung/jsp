@@ -4,10 +4,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import config.DBManager;
 import dto.BoardDTO;
+import dto.CommentDTO;
 import exception.BoardException;
+import vo.PagingVO;
 
 public class BoardDAO {
 	
@@ -31,7 +34,7 @@ public class BoardDAO {
 		String sql = "SELECT SEQ_BNO.NEXTVAL FROM DUAL";
 		
 		try {
-			pstmt = manager.getSource().getConnection().prepareStatement(sql);
+			pstmt = manager.getConn().prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
@@ -49,7 +52,7 @@ public class BoardDAO {
 		String sql2 = "INSERT INTO BOARD(bno,title,writer,content) VALUES(?,?,?,?)";
 		
 		try {
-			pstmt2 = manager.getSource().getConnection().prepareStatement(sql2);
+			pstmt2 = manager.getConn().prepareStatement(sql2);
 			pstmt2.setInt(1, bno);
 			pstmt2.setString(2, board.getTitle());
 			pstmt2.setString(3, board.getWriter());
@@ -78,7 +81,7 @@ public class BoardDAO {
 		String sql = "SELECT * FROM BOARD WHERE bno = ?";
 		
 		try {
-			pstmt = manager.getSource().getConnection().prepareStatement(sql);
+			pstmt = manager.getConn().prepareStatement(sql);
 			pstmt.setInt(1, bno);
 			rs = pstmt.executeQuery();
 			
@@ -100,7 +103,7 @@ public class BoardDAO {
 		String sql = "UPDATE BOARD SET bcount = bcount + 1 WHERE bno=?";
 		
 		try {
-			pstmt = manager.getSource().getConnection().prepareStatement(sql);
+			pstmt = manager.getConn().prepareStatement(sql);
 			pstmt.setInt(1, bno);
 			
 			int count = pstmt.executeUpdate();
@@ -127,7 +130,7 @@ public class BoardDAO {
 		String sql2 = "SELECT "+lh+" FROM BOARD WHERE bno = ?";
 		
 		try {
-			pstmt2 = manager.getSource().getConnection().prepareStatement(sql2);
+			pstmt2 = manager.getConn().prepareStatement(sql2);
 			//pstmt2.setString(1, lh);
 			pstmt2.setInt(1, bno);
 			
@@ -149,7 +152,7 @@ public class BoardDAO {
 		String sql = "UPDATE BOARD SET "+ lh +" = ? WHERE bno = ?";
 		
 		try {
-			pstmt = manager.getSource().getConnection().prepareStatement(sql);
+			pstmt = manager.getConn().prepareStatement(sql);
 			//pstmt.setString(1, lh);
 			pstmt.setInt(1, result);
 			pstmt.setInt(2, bno);
@@ -170,19 +173,21 @@ public class BoardDAO {
 		return result;
 	}
 
-	public ArrayList<BoardDTO> searchAllBoardDTO() {
+	public ArrayList<BoardDTO> searchAllBoardDTO(int currPage) {
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT * FROM BOARD";
-		
+		String sql = "SELECT * FROM  (SELECT rs.*,ROWNUM rn FROM (SELECT * FROM BOARD  ORDER BY bno desc) rs) WHERE CEIL(rn/?) = ?";
+		System.out.println("countAllBoard :"+countAllBoard());
+		PagingVO page = new PagingVO(countAllBoard(), currPage);
 		try {
-			pstmt = manager.getSource().getConnection().prepareStatement(sql);
+			pstmt = manager.getConn().prepareStatement(sql);
+			pstmt.setInt(1, page.getCountPageContent());
+			pstmt.setInt(2, currPage);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
 				list.add(new BoardDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getString(6), rs.getInt(7), rs.getInt(8)));
-				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -191,5 +196,94 @@ public class BoardDAO {
 		}
 		
 		return list;
+	}
+
+	public int insertBoardComment(CommentDTO dto) {
+		PreparedStatement pstmt = null;
+		String sql = "INSERT INTO board_comment(cno,bno,content,writer) VALUES(SEQ_CNO.NEXTVAL,?,?,?)";
+		int count = 0;
+		try {
+			pstmt = manager.getConn().prepareStatement(sql);
+			pstmt.setInt(1, dto.getBno());
+			pstmt.setString(2, dto.getContent());
+			pstmt.setString(3, dto.getWriter());
+			
+			count = pstmt.executeUpdate();
+			manager.getConn().commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			manager.close(pstmt, null);
+		}
+		
+		return count;
+	}
+
+	public ArrayList<CommentDTO> searchAllCommentDTO(int bno) {
+		ArrayList<CommentDTO> list = new ArrayList<CommentDTO>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM BOARD_COMMENT WHERE bno=? ORDER BY CNO DESC";
+		
+		try {
+			pstmt = manager.getConn().prepareStatement(sql);
+			pstmt.setInt(1, bno);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				list.add(new CommentDTO(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getInt(7)));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			manager.close(pstmt, rs);
+		}
+		
+		return list;
+		
+	}
+
+	public HashMap<Integer, Integer> countAllComment() {
+		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql="SELECT bno,COUNT(*) FROM BOARD_COMMENT GROUP BY bno";
+		
+		try {
+			pstmt = manager.getConn().prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				map.put(rs.getInt(1), rs.getInt(2));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			manager.close(pstmt, rs);
+		}
+		
+		return map;
+	}
+	
+	public int countAllBoard() {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT COUNT(*) FROM BOARD";
+		int result=0;
+		
+		try {
+			pstmt = manager.getConn().prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			manager.close(pstmt, rs);
+		}
+		
+		return result;
+		
 	}
 }
