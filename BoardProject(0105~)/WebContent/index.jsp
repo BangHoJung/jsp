@@ -14,13 +14,16 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
 	$(function() {
+		
 		$("tbody tr").click(function() {
 			var bno = $(this).children().eq(0).html();
 			console.log(bno+"\n<%=request.getContextPath()%>");
 			
-			location.href = "<%=request.getContextPath()%>/board/board_view.jsp?bno="+bno+"";
+			location.href = "<%=request.getContextPath()%>/board/board_view.jsp" +
+					"?currPage=<%=request.getParameter("currPage")%>&bno="+bno+"";
 			
 		});
+		
 	});
 </script>
 <style type="text/css">
@@ -126,6 +129,10 @@
 		float:right;
 	}
 	
+	#page_select {
+		color:blue;
+	}
+	
 </style>
 </head>
 <body>
@@ -135,17 +142,26 @@
 			param += "?"+request.getQueryString();
 		}
 		session.setAttribute("last", request.getRequestURI()+param);
-		System.out.println(session.getAttribute("last"));
+		session.setAttribute("lastBoard", request.getRequestURI()+param);
+		System.out.println("lb = "+session.getAttribute("lastBoard"));
 		
 		System.out.println("param : "+param);
 		int currPage = 1;
-		if(param.length()>1) {
-			currPage = Integer.parseInt(param.split("=")[1]);
+		if(request.getParameter("currPage") != null) {
+			currPage = Integer.parseInt(request.getParameter("currPage"));
 			System.out.println("currPage : " + currPage);
+		}
+		else {
+			response.sendRedirect("index.jsp?currPage=1&sort=bno");
 		}
 		int count = BoardDAO.getInstance().countAllBoard();
 		PagingVO pageVO = new PagingVO(count,currPage);
-		ArrayList<BoardDTO> board_list = BoardService.getInstance().searchAllBoardDTO(currPage);
+		
+		/* String sort="bno";
+		if(request.getParameter("sort") != null) {
+		} */
+		String sort = request.getParameter("sort");
+		ArrayList<BoardDTO> board_list = BoardService.getInstance().searchAllBoardDTO(currPage,sort);
 		HashMap<Integer, Integer> map = BoardService.getInstance().countAllComment(); 
 		
 	%>
@@ -167,9 +183,9 @@
 						<th>제목</th>
 						<th>작성자</th>
 						<th>작성일</th>
-						<th>조회수</th>
-						<th>좋아요</th>
-						<th>싫어요</th>
+						<th><a href="index.jsp?currPage=1&sort=bcount">조회수</a></th>
+						<th><a href="index.jsp?currPage=1&sort=blike">좋아요</a></th>
+						<th><a href="index.jsp?currPage=1&sort=bhate">싫어요</a></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -203,13 +219,18 @@
 							<%
 							if(pageVO.isPrevPageGroup()) { 
 							%>	
-								<a href="index.jsp?currPage=<%=pageVO.getStartPageOfPageGroup()-1%>">◀</a>
+								<a href="index.jsp?currPage=<%=pageVO.getStartPageOfPageGroup()-1%>&sort=<%=sort%>">◀</a>
 							<%}
-							for(int i=pageVO.getStartPageOfPageGroup();i<=pageVO.getEndPageOfPageGroup();i++) {%>
-								<a href="index.jsp?currPage=<%=i%>"><%=i%></a>
-							<%}
+							for(int i=pageVO.getStartPageOfPageGroup();i<=pageVO.getEndPageOfPageGroup();i++) {
+								if(currPage == i) {%>
+									<a href="" id="page_select"><%=i%></a>
+								<%}
+								else {%>
+									<a href="index.jsp?currPage=<%=i%>&sort=<%=sort%>"><%=i%></a>
+								<%}
+							}
 							if(pageVO.isNextPageGroup()) {%>
-								<a href="index.jsp?currPage=<%=pageVO.getEndPageOfPageGroup()+1%>">▶</a>
+								<a href="index.jsp?currPage=<%=pageVO.getEndPageOfPageGroup()+1%>&sort=<%=sort%>">▶</a>
 							<%}%>
 							<span><a href="<%=request.getContextPath() %>/board/board_write_view.jsp" class="btn">글쓰기</a></span>
 						</td>

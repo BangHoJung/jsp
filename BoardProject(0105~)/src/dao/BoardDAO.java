@@ -173,11 +173,12 @@ public class BoardDAO {
 		return result;
 	}
 
-	public ArrayList<BoardDTO> searchAllBoardDTO(int currPage) {
+	public ArrayList<BoardDTO> searchAllBoardDTO(int currPage, String sort) {
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT * FROM  (SELECT rs.*,ROWNUM rn FROM (SELECT * FROM BOARD  ORDER BY bno desc) rs) WHERE CEIL(rn/?) = ?";
+		String sql = "SELECT * FROM  (SELECT rs.*,ROWNUM rn FROM (SELECT * FROM BOARD  ORDER BY "+sort+" desc) rs) WHERE CEIL(rn/?) = ?";
+		
 		System.out.println("countAllBoard :"+countAllBoard());
 		PagingVO page = new PagingVO(countAllBoard(), currPage);
 		try {
