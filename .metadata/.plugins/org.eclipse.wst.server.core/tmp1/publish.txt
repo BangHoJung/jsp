@@ -1,11 +1,11 @@
 #Tomcat publish data
-#Thu Jan 14 16:57:04 KST 2021
+#Thu Jan 14 17:55:20 KST 2021
 org.eclipse.jst.jee.server\:MemberProject(1229~0105)=C\:\\java\\tomcat8\\webapps\\MemberProject(1229~0105)
-org.eclipse.jst.jee.server\:BoardProject(0105~)=C\:\\java\\tomcat8\\webapps\\BoardProject(0105~)
 org.eclipse.jst.jee.server\:ServletTest=C\:\\java\\tomcat8\\webapps\\ServletTest
 org.eclipse.jst.jee.server\:Step05=C\:\\java\\tomcat8\\webapps\\Step05
 org.eclipse.jst.jee.server\:Step06=C\:\\java\\tomcat8\\webapps\\Step06
 org.eclipse.jst.jee.server\:Step03=C\:\\java\\tomcat8\\webapps\\Step03
+org.eclipse.jst.jee.server\:BoardProject=C\:\\java\\tomcat8\\webapps\\BoardProject
 org.eclipse.jst.jee.server\:Step04=C\:\\java\\tomcat8\\webapps\\Step04
 org.eclipse.jst.jee.server\:Step01=C\:\\java\\tomcat8\\webapps\\Step01
 org.eclipse.jst.jee.server\:Step02=C\:\\java\\tomcat8\\webapps\\Step02
