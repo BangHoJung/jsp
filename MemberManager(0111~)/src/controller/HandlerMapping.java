@@ -38,6 +38,12 @@ public class HandlerMapping {
 		case "qna_view.do":
 			controller = new QnaViewController();
 			break;
+		case "next_qnaList.do":
+			controller = new NextQnaListController();
+			break;
+		case "qna_master_board.do":
+			controller = new QnaMasterBoardController();
+			break;
 		}
 		return controller;
 	}

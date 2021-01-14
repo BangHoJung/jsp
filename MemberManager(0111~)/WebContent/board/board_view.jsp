@@ -327,7 +327,7 @@
 		
 		<nav>
 			<h2>작성글 조회</h2>
-			<form action="/process/board_wirte_process" method="post">
+			<form action="/process/board_write_process" method="post">
 				<table>
 					<%
 						if(session.getAttribute("login")!=null && (boolean)session.getAttribute("login")) {

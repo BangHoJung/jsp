@@ -341,7 +341,7 @@ public class BoardDAO {
 	public ArrayList<QnaDTO> searchQnaMasterList(int currPage) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT * FROM ( SELECT q.*,ROWNUM rn FROM (SELECT * FROM qna ORDER BY status asc, qid desc) q) WHERE CEIL(rn/10)=?";
+		String sql = "SELECT * FROM ( SELECT q.*,ROWNUM rn FROM (SELECT * FROM qna ORDER BY status asc, qid desc) q) WHERE CEIL(rn/5)=?";
 		ArrayList<QnaDTO> list = new ArrayList<QnaDTO>();
 		
 		try {
@@ -353,6 +353,28 @@ public class BoardDAO {
 				list.add(new QnaDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7)));
 			}
 			System.out.println("DAO : qnaListMaster");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			manager.close(pstmt, rs);
+		}
+		
+		return list;
+	}
+
+	public ArrayList<QnaDTO> searchNoAnswerQnaList() {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM ( SELECT q.*,ROWNUM rn FROM (SELECT * FROM qna ORDER BY status asc, qid desc) q) WHERE status<2";
+		ArrayList<QnaDTO> list = new ArrayList<QnaDTO>();
+		
+		try {
+			pstmt = manager.getConn().prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				list.add(new QnaDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7)));
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

@@ -18,13 +18,27 @@ public class QnaViewController implements Controller {
 		HttpSession session = request.getSession();
 		String writer = (String) session.getAttribute("id");
 		String grade = (String) session.getAttribute("grade");
-		int currPage = 1;
-		ArrayList<QnaDTO> list = BoardService.getInstance().searchQnaList(writer,currPage,grade);
+		int nextPage;
+		ArrayList<QnaDTO> list = BoardService.getInstance().searchQnaList(writer,1,grade);
+		
+		if(BoardService.getInstance().searchQnaList(writer, 2, grade).size()==0) {
+			nextPage = 0;
+		}
+		else {
+			nextPage = 2;
+		}
 		
 		request.setAttribute("list", list);
-		ModelAndView view = new ModelAndView("member/qna.jsp", false);
+		request.setAttribute("nextPage", nextPage);
+		ModelAndView view = null;
+		if(grade.equals("master")) {
+			view = new ModelAndView("member/qna_master.jsp", false);
+		}
+		else {
+			view = new ModelAndView("member/qna.jsp", false);
+		}
 
-		
+		System.out.println("first nextPage : " + nextPage);
 		return view;
 	}
 	

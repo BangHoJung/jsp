@@ -1,6 +1,7 @@
 #Tomcat publish data
-#Wed Jan 13 17:44:41 KST 2021
+#Thu Jan 14 16:57:04 KST 2021
 org.eclipse.jst.jee.server\:MemberProject(1229~0105)=C\:\\java\\tomcat8\\webapps\\MemberProject(1229~0105)
+org.eclipse.jst.jee.server\:BoardProject(0105~)=C\:\\java\\tomcat8\\webapps\\BoardProject(0105~)
 org.eclipse.jst.jee.server\:ServletTest=C\:\\java\\tomcat8\\webapps\\ServletTest
 org.eclipse.jst.jee.server\:Step05=C\:\\java\\tomcat8\\webapps\\Step05
 org.eclipse.jst.jee.server\:Step06=C\:\\java\\tomcat8\\webapps\\Step06
@@ -10,5 +11,4 @@ org.eclipse.jst.jee.server\:Step01=C\:\\java\\tomcat8\\webapps\\Step01
 org.eclipse.jst.jee.server\:Step02=C\:\\java\\tomcat8\\webapps\\Step02
 org.eclipse.jst.jee.server\:MemberManager(0111~)=C\:\\java\\tomcat8\\webapps\\MemberManager(0111~)
 org.eclipse.jst.jee.server\:MemberProject(teach)=C\:\\java\\tomcat8\\webapps\\MemberProject(teach)
-org.eclipse.jst.jee.server\:BoardProject(0105~0111)=C\:\\java\\tomcat8\\webapps\\BoardProject(0105~0111)
 org.eclipse.jst.j2ee.server\:ojdbc6=C\:\\java\\tomcat8\\webapps\\MemberProject(teach)\\WEB-INF\\lib\\ojdbc6.jar

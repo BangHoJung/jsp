@@ -6,6 +6,62 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript">
+	var nextPage = ${requestScope.nextPage};
+	$(function() {
+		if(nextPage == "0") {
+			$("#btn_more").css("display","none");
+		}
+		$("#qna_list").accordion();
+		
+		$("#btn_more").click(function() {
+			var data = "nextPage="+nextPage;
+			var obj = $(this);
+			console.log("data :" + data);
+			$.ajax({
+				url : "next_qnaList.do",
+				data : data,
+				method : 'get',
+				success : function(d) {
+					var json = JSON.parse(d);
+					console.log(json);
+					nextPage = json.nextPage;
+					if(nextPage=="0") {
+						$("#btn_more").css("display","none");
+					}
+					var result="";
+					for(i=0;i<json.array.length;i++) {
+						result+="<h3><ul>";
+						result+="<li>제목:"+json.array[i].title	+"</li>";
+						result+="<li>작성자:"+json.array[i].writer+"</li>";
+						result+="<li>작성일:"+json.array[i].qdate+"</li>";
+						if(json.array[i].status == 0) {
+							result+="<li>읽지않음</li>";
+						}
+						else if(json.array[i].status == 1) {
+							result+="<li>읽었음</li>";
+						}
+						else {
+							result+="<li>답변완료</li>";
+						}
+						result+="</ul></h3><div style = 'white-space:pre;'>";
+						result+="<p>"+json.array[i].content+"</p>";
+						if(json.array[i].status == 2) {
+							result+="<p> 답변 <br>"+json.array[i].response+"</p>";
+						}
+						result+="</div>";
+					}
+					console.log(result);
+					$("#qna_list").append(result);
+					$("#qna_list").accordion("refresh");
+				}
+			}); 
+		});
+	});
+</script>
 <style type="text/css">
 	* {
 		margin:0;
@@ -17,11 +73,11 @@
 	}
 	
 	nav {
-		width:100%;
+		width:700px;
+		margin:0 auto;
 	}
 	#qna_form {
-		margin:0 auto;
-		width:700px;
+		width:100%;
 	}
 	
 	#qna_form table {
@@ -51,6 +107,17 @@
 	#qna_form button {
 		width:100px;
 		height:150px;
+	}
+	
+	#qna_list {
+		width:100%;
+		text-align: left;
+	}
+	
+	#btn_more {
+		width:100%;
+		padding:10px;
+		font-size:20px;
 	}
 	
 </style>
@@ -96,24 +163,34 @@
 			</c:if>
 			<div id="qna_list">
 				<c:forEach var="dto" items="${requestScope.list }">
-					${dto.qdate} | 
-					<c:choose>
-						<c:when test="${dto.status == 0}"> 
-							읽지않음
-						</c:when>
-						<c:when test="${dto.status == 1}">
-							읽었음
-						</c:when>
-						<c:otherwise>
-							답변완료
-						</c:otherwise>
-					</c:choose>
-					 | ${dto.response} | <br>
-					${dto.title } | ${dto.writer }<br>
-					${dto.content } <br>
+					<h3>
+						<ul>
+							<li>제목:${dto.title }</li>  <li>작성자:${dto.writer }</li> <li>작성일:${dto.qdate }</li>
+							<li>	
+								<c:choose>
+									<c:when test="${dto.status == 0}"> 
+										읽지않음
+									</c:when>
+									<c:when test="${dto.status == 1}">
+										읽었음
+									</c:when>
+									<c:otherwise>
+										답변완료
+									</c:otherwise>
+								</c:choose>
+							</li>
+						</ul>
+					</h3>
+					<div style="white-space:pre;" >
+						<p>${dto.content }</p>
+						<c:if test="${dto.status == 2 }">
+							<br>
+							<p>답변<br>${dto.response }</p>
+						</c:if>
+					</div>
 				</c:forEach>
-				
-			</div>
+			</div> 
+			<button id="btn_more">더보기</button>
 		</nav>
 		
 		<jsp:include page="/template/footer.jsp" flush="false"></jsp:include>

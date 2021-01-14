@@ -80,4 +80,8 @@ public class BoardService {
 		}
 	}
 
+	public ArrayList<QnaDTO> searchNoAnswerQnaList() {
+		return dao.searchNoAnswerQnaList();
+	}
+
 }

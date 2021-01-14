@@ -14,6 +14,7 @@ import org.quartz.impl.StdSchedulerFactory;
 public class CronTriggerMaker {
 	private String timer; //크론 표현식
 	private Class<? extends Job> job;
+	private Scheduler scheduler;
 	
 	public CronTriggerMaker(String timer, Class<? extends Job> job) {
 		super();
@@ -21,9 +22,8 @@ public class CronTriggerMaker {
 		this.job = job;
 	}
 	
-	public void createTrigger() {
+	public void createScheduler() {
 		SchedulerFactory factory;
-		Scheduler scheduler;
 		
 		JobDetail jobDetail = JobBuilder.newJob(job).withIdentity(job.getName(),"group").build();
 		CronTrigger cronTrigger = TriggerBuilder.newTrigger().withIdentity("trigger","group").
@@ -40,12 +40,11 @@ public class CronTriggerMaker {
 		}
 	}
 	
-	/*
-	 * 크론 표현식 : 초 분 시 일 월 요일 년도
-	 * 자동 완성 사이트 : http://www.cronmaker.com
-	*/
-	public static void main(String[] args) {
-		CronTriggerMaker js = new CronTriggerMaker("* * * * * ?", IntervalJob.class);
-		js.createTrigger();
+	public void shutdownScheduler() {
+		try {
+			scheduler.shutdown();
+		} catch (SchedulerException e) {
+			e.printStackTrace();
+		}
 	}
 }
