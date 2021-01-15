@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;MemberProject&apos; to &apos;MemberProject(1229~0105)&apos;" description="Rename resource &apos;MemberProject&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="/MemberProject" name="MemberProject(1229~0105)" stamp="1609808008942" updateReferences="true"/>&#x0A;<refactoring comment="Copy 0 elements to &apos;WEB-INF&apos;&#x0D;&#x0A;- Destination element: &apos;WEB-INF&apos;" description="Copy compilation units" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1609811078177" target="/BoardProject(0105~)/WebContent/WEB-INF" units="0" version="1.0"/>
-</session>
