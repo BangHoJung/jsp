@@ -383,4 +383,46 @@ public class BoardDAO {
 		
 		return list;
 	}
+
+	public QnaDTO searchQnaDTO(int qid) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM qna WHERE qid=?";
+		QnaDTO dto = null;
+		
+		try {
+			pstmt = manager.getConn().prepareStatement(sql);
+			pstmt.setInt(1,qid);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				dto = new QnaDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
+
+	public int updateQnaResponse(int qid, String answer) {
+		PreparedStatement pstmt = null;
+		String sql ="UPDATE qna SET response = ? WHERE qid=?";
+		int count = 0;
+		
+		try {
+			pstmt = manager.getConn().prepareStatement(sql);
+			pstmt.setString(1, answer);
+			pstmt.setInt(2, qid);
+			
+			count = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			manager.close(pstmt, null);
+		}
+		
+		
+		return count;
+	}
 }

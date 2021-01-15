@@ -10,11 +10,8 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
-	var nextPage = ${requestScope.nextPage};
+	var nextPage = 1;
 	$(function() {
-		if(nextPage == "0") {
-			$("#btn_more").css("display","none");
-		}
 		$("#qna_list").accordion();
 		
 		$("#btn_more").click(function() {
@@ -60,6 +57,8 @@
 				}
 			}); 
 		});
+		
+		$("#btn_more").click();
 	});
 </script>
 <style type="text/css">
@@ -144,25 +143,23 @@
 		<jsp:include page="/template/header.jsp" flush="false"></jsp:include>
 		
 		<nav>
-			<c:if test="${sessionScope.grade != 'master' }">
-				<div id="qna_form">
-					<form action="<%=request.getContextPath() %>/register_qna.do" method="post">
-						<table>
-							<tr>
-								<td><input type="text" name="title" placeholder="문의 제목"></td>
-								<td rowspan="2"><button type="submit">문의 등록</button></td>
-							</tr>
-							<tr>
-								<td><textarea name="content" placeholder="문의 내용을 입력해주세요"></textarea></td>
-							</tr>
-						</table>
-						
-					</form>
-					<hr>
-				</div>
-			</c:if>
+			<div id="qna_form">
+				<form action="<%=request.getContextPath() %>/register_qna.do" method="post">
+					<table>
+						<tr>
+							<td><input type="text" name="title" placeholder="문의 제목"></td>
+							<td rowspan="2"><button type="submit">문의 등록</button></td>
+						</tr>
+						<tr>
+							<td><textarea name="content" placeholder="문의 내용을 입력해주세요"></textarea></td>
+						</tr>
+					</table>
+					
+				</form>
+				<hr>
+			</div>
 			<div id="qna_list">
-				<c:forEach var="dto" items="${requestScope.list }">
+				<%-- <c:forEach var="dto" items="${requestScope.list }">
 					<h3>
 						<ul>
 							<li>제목:${dto.title }</li>  <li>작성자:${dto.writer }</li> <li>작성일:${dto.qdate }</li>
@@ -188,7 +185,7 @@
 							<p>답변<br>${dto.response }</p>
 						</c:if>
 					</div>
-				</c:forEach>
+				</c:forEach> --%>
 			</div> 
 			<button id="btn_more">더보기</button>
 		</nav>

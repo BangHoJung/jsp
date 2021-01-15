@@ -21,9 +21,7 @@
     <fullyQualifiedTypeName name="vo.MemberVO"/>
     <fullyQualifiedTypeName name="service.MemberService"/>
     <fullyQualifiedTypeName name="exception.BoardException"/>
-    <fullyQualifiedTypeName name="javax.websocket.Session"/>
     <fullyQualifiedTypeName name="javax.servlet.http.HttpSession"/>
-    <fullyQualifiedTypeName name="model.ModelAndView"/>
     <fullyQualifiedTypeName name="java.lang.Class"/>
     <fullyQualifiedTypeName name="org.quartz.SchedulerFactory"/>
     <fullyQualifiedTypeName name="org.quartz.Scheduler"/>
@@ -36,16 +34,18 @@
     <fullyQualifiedTypeName name="batch.IntervalJob"/>
     <fullyQualifiedTypeName name="batch.SearchNoAnswerQnaSchedular"/>
     <fullyQualifiedTypeName name="org.quartz.Job"/>
-    <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
-    <fullyQualifiedTypeName name="java.sql.ResultSet"/>
     <fullyQualifiedTypeName name="batch.CronTriggerMaker"/>
     <fullyQualifiedTypeName name="batch.SearchNoAnswerQnaJob"/>
     <fullyQualifiedTypeName name="java.util.Calendar"/>
-    <fullyQualifiedTypeName name="java.lang.Integer"/>
     <fullyQualifiedTypeName name="java.util.ArrayList"/>
-    <fullyQualifiedTypeName name="dto.QnaDTO"/>
-    <fullyQualifiedTypeName name="service.BoardService"/>
     <fullyQualifiedTypeName name="org.json.JSONObject"/>
     <fullyQualifiedTypeName name="org.json.JSONArray"/>
     <fullyQualifiedTypeName name="javax.servlet.jsp.JspWriter"/>
+    <fullyQualifiedTypeName name="dto.QnaDTO"/>
+    <fullyQualifiedTypeName name="javax.websocket.Session"/>
+    <fullyQualifiedTypeName name="java.lang.Integer"/>
+    <fullyQualifiedTypeName name="service.BoardService"/>
+    <fullyQualifiedTypeName name="model.ModelAndView"/>
+    <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
+    <fullyQualifiedTypeName name="java.sql.ResultSet"/>
 </qualifiedTypeNameHistroy>

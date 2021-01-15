@@ -33,7 +33,7 @@
 		<jsp:include page="/template/header.jsp" flush="false"></jsp:include>
 		
 		<nav>
-			<form action="<%=request.getContextPath() %>/login.do" method="post">
+			<form action="login.do" method="post">
 				아이디 : <input type="text" name="id">  <br>
 				암호 : <input type="password" name="pass"> <br>
 				<button type="submit">로그인</button>

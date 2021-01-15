@@ -10,15 +10,12 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
-	var nextPage = ${requestScope.nextPage};
-	$(document).on("click","#qna_list tbody tr", function() {
-		console.log($(this).children("td > input").eq().val());
-	});
+	/* $(document).on("click","#qna_list tbody tr", function(e) {
+		console.log($("input").eq($(this).index()).attr("name"));
+	}); */
 	
+	var nextPage = 1;
 	$(function() {
-		if(nextPage == "0") {
-			$("#btn_more").css("display","none");
-		}
 		
 		$("#btn_more").click(function() {
 			var data = "nextPage="+nextPage;
@@ -38,7 +35,7 @@
 					var result="";
 					for(i=0;i<json.array.length;i++) {
 						result+="<tr>";
-						result+="<td><input type='hidden' value='"+json.array[i].qid+"'>"+json.array[i].title	+"</td>";
+						result+="<td><a href='qna_master_view.do?qid="+json.array[i].qid+"'>"+json.array[i].title	+"</a></td>";
 						result+="<td>"+json.array[i].writer+"</td>";
 						result+="<td>"+json.array[i].qdate+"</td>";
 						if(json.array[i].status == 0) {
@@ -57,6 +54,8 @@
 				}
 			}); 
 		});
+		
+		$("#btn_more").click();
 	});
 </script>
 <style type="text/css">
@@ -92,9 +91,13 @@
 		font-size:16px;
 	}
 	
-	#qna_list tbody tr:hover {
-		border:1px solid black;
-		background-color: silver;
+	#qna_list tbody a:link, #qna_list tbody a:visited {
+		color:black;
+		text-decoration: none;
+	}
+	
+	#qna_list tbody a:hover {
+		color:blue;
 	}
 	
 	#qna_list th {
@@ -149,7 +152,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="dto" items="${requestScope.list }">
+						<%-- <c:forEach var="dto" items="${requestScope.list }">
 							<tr>
 								<td><input type="hidden" value="${dto.qid }">${dto.title }</td>  
 								<td>${dto.writer }</td> <td>${dto.qdate }</td>
@@ -167,7 +170,7 @@
 									</c:choose>
 								</td>
 							</tr>
-						</c:forEach>
+						</c:forEach> --%>
 					</tbody>
 				</table>
 				<button id="btn_more">더보기</button>

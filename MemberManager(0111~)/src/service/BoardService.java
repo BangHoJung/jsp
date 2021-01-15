@@ -84,4 +84,13 @@ public class BoardService {
 		return dao.searchNoAnswerQnaList();
 	}
 
+	public QnaDTO searchQnaDTO(int qid) {
+		return dao.searchQnaDTO(qid);
+	}
+
+	public int updateQnaResponse(int qid, String answer) {
+		int count = dao.updateQnaResponse(qid,answer);
+		return count;
+	}
+
 }
